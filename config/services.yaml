@@ -1,0 +1,137 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\UserInterface\:
+        resource: '../src/UserInterface'
+        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+    App\Application\:
+        resource: '../src/Application/**/*Handler.php'
+        tags: [command_handler]
+        public: true
+
+    users.repository:
+        alias: App\Infrastructure\Persistence\Doctrine\UserManagement\DoctrineUsersRepository
+
+    clients.repository:
+        alias: App\Infrastructure\Persistence\Doctrine\UserManagement\OAuth2\DoctrineClientsRepository
+
+    scopes.repository:
+        alias: App\Infrastructure\Persistence\Doctrine\UserManagement\OAuth2\DoctrineScopesRepository
+
+    access.tokens.repository:
+        alias: App\Infrastructure\Persistence\Doctrine\UserManagement\OAuth2\DoctrineAccessTokensRepository
+
+    refresh.tokens.repository:
+        alias: App\Infrastructure\Persistence\Doctrine\UserManagement\OAuth2\DoctrineRefreshTokensRepository
+
+    oauth2.password.grant:
+        class: League\OAuth2\Server\Grant\PasswordGrant
+        arguments:
+            - '@users.repository'
+            - '@refresh.tokens.repository'
+        calls:
+            - method: setRefreshTokenTTL
+              arguments:
+                  - '@refresh.token.ttl'
+
+    oauth2.refresh.token.grant:
+        class: League\OAuth2\Server\Grant\RefreshTokenGrant
+        arguments:
+            - '@refresh.tokens.repository'
+        calls:
+            - method: setRefreshTokenTTL
+              arguments:
+                  - '@refresh.token.ttl'
+
+    refresh.token.ttl:
+        class: DateInterval
+        arguments:
+            - 'P1M'
+    access.token.ttl:
+        class: DateInterval
+        arguments:
+            - 'PT1H'
+
+    League\OAuth2\Server\AuthorizationServer:
+        class: League\OAuth2\Server\AuthorizationServer
+        tags: ['league.authorization.server', 'authorization.server']
+        arguments:
+            $clientRepository: '@clients.repository'
+            $accessTokenRepository: '@access.tokens.repository'
+            $scopeRepository: '@scopes.repository'
+            $privateKey: '%kernel.project_dir%/%env(OAUTH_PRIVATE_KEY)%'
+            $encryptionKey: '%env(OAUTH_ENC_KEY)%'
+        calls:
+            - method: enableGrantType
+              arguments:
+                  - '@oauth2.password.grant'
+                  - '@access.token.ttl'
+            - method: enableGrantType
+              arguments:
+                  - '@oauth2.refresh.token.grant'
+                  - '@access.token.ttl'
+
+    League\OAuth2\Server\ResourceServer:
+        class: League\OAuth2\Server\ResourceServer
+        tags: ['league.resource.server', 'resource.server']
+        arguments:
+            $accessTokenRepository: '@access.tokens.repository'
+            $publicKey: '%kernel.project_dir%/%env(OAUTH_PUBLIC_KEY)%'
+
+    App\Infrastructure\HttpKernel\EventListener\ControllerListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, priority: 10 }
+
+    App\Infrastructure\HttpKernel\EventListener\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception}
+
+    # Tactician command bus
+    League\Tactician\CommandBus:
+        class: League\Tactician\CommandBus
+        arguments:
+            $middleware: ['@command.bus.middleware']
+
+    command.bus.middleware:
+        class: League\Tactician\Handler\CommandHandlerMiddleware
+        arguments:
+            $commandNameExtractor: '@command.bus.name.extractor'
+            $handlerLocator: '@command.bus.handler.locator'
+            $methodNameInflector: '@command.bus.method.name.inflector'
+
+    command.bus.name.extractor:
+        class: League\Tactician\Handler\CommandNameExtractor\ClassNameExtractor
+
+    command.bus.method.name.inflector:
+        class: League\Tactician\Handler\MethodNameInflector\HandleInflector
+
+    command.bus.handler.locator:
+        class: App\Infrastructure\CommandBus\ClassNameHandlerLocator
+        public: true
+        arguments:
+            $container: '@service_container'
+
+    League\Event\EmitterInterface:
+        class: League\Event\Emmiter
+        public: true
