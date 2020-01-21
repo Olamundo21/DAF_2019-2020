@@ -135,3 +135,6 @@ services:
     League\Event\EmitterInterface:
         class: League\Event\Emmiter
         public: true
+
+        App\Application\Questions\QuestionsListQuery:
+            class: App\Infrastructure\Persistence\Doctrine\Questions\DoctrineQuestionsListQuery

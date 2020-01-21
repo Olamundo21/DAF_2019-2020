@@ -16,13 +16,17 @@ use Doctrine\ORM\Mapping as ORM;
 use Exception;
 
 /**
- * Question
- *
- * @package App\Domain\Questions
- *
- * @ORM\Entity()
- * @ORM\Table(name="questions")
- */
+* @package App\Domain\Questions
+*
+* @IgnoreAnnotation("OA\Schema")
+* @IgnoreAnnotation("OA\Property")
+* @IgnoreAnnotation("OA\Items")
+*
+* @ORM\Entity()
+* @ORM\Table(name="questions")
+*
+* @OA\Schema()
+*/
 class Question implements EventGenerator
 {
     use EventGeneratorMethods;
@@ -33,6 +37,12 @@ class Question implements EventGenerator
      * @ORM\Id()
      * @ORM\Column(type="QuestionId", name="id")
      * @ORM\GeneratedValue(strategy="NONE")
+     *
+     * @OA\Property(
+     *     type="string",
+     *     description="Question identifier",
+     *     example="e1026e90-9b21-4b6d-b06e-9c592f7bdb82"
+     * )
      */
     private $questionId;
 
@@ -40,6 +50,12 @@ class Question implements EventGenerator
      * @var UserId
      *
      * @ORM\Column(type="UserId", name="user_id")
+     *
+     * @OA\Property(
+     *     type="string",
+     *     description="User identifier",
+     *     example="e1026e90-9b21-4b6d-b06e-9c592f7bdb82"
+     * )
      */
     private $userId;
 
@@ -47,6 +63,11 @@ class Question implements EventGenerator
      * @var string
      *
      * @ORM\Column()
+     *
+     * @OA\Property(
+     *     description="Question made",
+     *     example="What time is it?"
+     * )
      */
     private $question;
 
@@ -54,6 +75,11 @@ class Question implements EventGenerator
      * @var string
      *
      * @ORM\Column()
+     *
+     * @OA\Property(
+     *     description="Optional description",
+     *     example="It gets hard to know what time is it when I am working. Can you help?"
+     * )
      */
     private $description;
 
@@ -61,6 +87,11 @@ class Question implements EventGenerator
      * @var DateTimeImmutable
      *
      * @ORM\Column(type="datetime_immutable")
+     *
+     * @OA\Property(
+     *     ref="#/components/schemas/DateTime",
+     *     description="Date and time question was applied"
+     * )
      */
     private $appliedOn;
 
@@ -68,6 +99,11 @@ class Question implements EventGenerator
      * @var bool
      *
      * @ORM\Column()
+     *
+     * @OA\Property(
+     *     example=true,
+     *     description="Flag the open/close question state"
+     * )
      */
     private $open = true;
 
@@ -75,6 +111,11 @@ class Question implements EventGenerator
      * @var DateTimeImmutable
      *
      * @ORM\Column(type="datetime_immutable", nullable=true)
+     *
+     * @OA\Property(
+     *     ref="#/components/schemas/DateTime",
+     *     description="Date and time question was last edited"
+     * )
      */
     private $lastEditedOn;
 
@@ -85,6 +126,11 @@ class Question implements EventGenerator
      *      joinColumns={@ORM\JoinColumn(name="question_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      *      )
+     *
+     * @OA\Property(
+     *     description="Question tags",
+     *     @OA\Items(ref="#/components/schemas/Tag")
+     * )
      */
     private $tags;
 

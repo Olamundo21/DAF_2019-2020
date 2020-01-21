@@ -4,6 +4,16 @@ namespace App\Application\Questions;
 
 use App\Domain\UserManagement\User\UserId;
 
+/**
+ * AddQuestionCommand
+ *
+ * @package App\Application\Questions
+ *
+ * @OA\Schema(
+ *     title="AddQuestion",
+ *     schema="AddQuestion"
+ * )
+ */
 class AddQuestionCommand
 {
     /**
@@ -13,11 +23,13 @@ class AddQuestionCommand
 
     /**
      * @var string
+     * @OA\Property(example="What's for dinner tonigth?")
      */
     private $question;
 
     /**
      * @var string
+     * @OA\Property(example="I am starving!!")
      */
     private $description;
 
@@ -50,3 +62,12 @@ class AddQuestionCommand
         return $this->question;
     }
 }
+
+/**
+ * @OA\RequestBody(
+ *     request="AddQuestion",
+ *     description="Object containing the very minimal information needded to create a question",
+ *     required=true,
+ *     @OA\JsonContent(ref="#/components/schemas/AddQuestion")
+ * )
+ */
