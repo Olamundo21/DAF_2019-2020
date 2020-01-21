@@ -2,22 +2,50 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3490e440-148b-44de-b27d-3667ea11cf3a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/spec/Domain/Answers/Answer/AnswerIdSpec.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spec/Domain/Answers/AnswerSpec.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spec/Domain/Answers/Events/AnswerWasCreatedSpec.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spec/Domain/Answers/Events/AnswerWasEditedSpec.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Domain/Answers/Answer.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Domain/Answers/Answer/AnswerId.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Domain/Answers/Events/AnswerWasCreated.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Domain/Answers/Events/AnswerWasEdited.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spec/Application/Answers/AddAnswerCommandSpec.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spec/Application/Answers/AddAnswerHandlerSpec.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spec/Application/Answers/DeleteAnswerCommandSpec.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spec/Application/Answers/DeleteAnswerHandlerSpec.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spec/Application/Answers/EditAnswerCommandSpec.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spec/Application/Answers/EditAnswerHandlerSpec.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spec/Application/Questions/DeleteQuestionCommandSpec.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spec/Application/Questions/DeleteQuestionHandlerSpec.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spec/Domain/Answers/Events/AnswerWasDeletedSpec.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spec/Domain/Answers/Specification/AcceptedAnswerSpec.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spec/Domain/Answers/Specification/AnswerOwnerSpec.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Application/Answers/AddAnswerCommand.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Application/Answers/AddAnswerHandler.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Application/Answers/DeleteAnswerCommand.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Application/Answers/DeleteAnswerHandler.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Application/Answers/EditAnswerCommand.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Application/Answers/EditAnswerHandler.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Application/Questions/DeleteQuestionCommand.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Application/Questions/DeleteQuestionHandler.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Domain/Answers/AnswerSpecification.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Domain/Answers/AnswersRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Domain/Answers/Events/AnswerWasDeleted.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Domain/Answers/Specification/AcceptedAnswer.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Domain/Answers/Specification/AnswerOwner.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Domain/Exception/AnswerNotFound.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Domain/Exception/InvalidAnswerOwner.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Domain/Exception/InvalidAnswerState.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/Answers/DoctrineAnswerId.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/Answers/DoctrineAnswersRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/Application/Questions/AddQuestionCommandSpec.php" beforeDir="false" afterPath="$PROJECT_DIR$/spec/Application/Questions/AddQuestionCommandSpec.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/Domain/Answers/AnswerSpec.php" beforeDir="false" afterPath="$PROJECT_DIR$/spec/Domain/Answers/AnswerSpec.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/Domain/Questions/TagSpec.php" beforeDir="false" afterPath="$PROJECT_DIR$/spec/Domain/Questions/TagSpec.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Domain/Answers/Answer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Answers/Answer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Domain/Questions/QuestionsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Questions/QuestionsRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Domain/Questions/Tag.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Questions/Tag.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/Questions/DoctrineQuestionsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/Questions/DoctrineQuestionsRepository.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
       <executable />
@@ -122,7 +150,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -146,7 +174,6 @@
         </serviceView>
       </list>
     </option>
-    <option name="showServicesTree" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -159,6 +186,8 @@
       <option name="presentableId" value="Default" />
       <updated>1579454031091</updated>
       <workItem from="1579454034634" duration="12578000" />
+      <workItem from="1579466677486" duration="7306000" />
+      <workItem from="1579527996407" duration="32687000" />
     </task>
     <servers />
   </component>
@@ -169,33 +198,42 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="491" y="116" width="374" height="569" key="#com.intellij.ide.util.MemberChooser" timestamp="1579463827228">
-      <screen x="0" y="27" width="1360" height="741" />
+    <state x="493" y="116" width="374" height="569" key="#com.intellij.ide.util.MemberChooser" timestamp="1579568373803">
+      <screen x="0" y="27" width="1366" height="741" />
     </state>
+    <state x="493" y="116" width="374" height="569" key="#com.intellij.ide.util.MemberChooser/0.27.1366.741@0.27.1366.741" timestamp="1579568373803" />
     <state x="491" y="116" width="374" height="569" key="#com.intellij.ide.util.MemberChooser/1360.0.1366.768/0.27.1360.741@0.27.1360.741" timestamp="1579463827228" />
     <state x="855" y="27" width="476" height="741" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1579457399924">
       <screen x="0" y="27" width="1360" height="741" />
     </state>
     <state x="855" y="27" width="476" height="741" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/1360.0.1366.768/0.27.1360.741@0.27.1360.741" timestamp="1579457399924" />
-    <state x="416" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1579463559957">
-      <screen x="0" y="27" width="1360" height="741" />
-    </state>
-    <state x="416" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1360.0.1366.768/0.27.1360.741@0.27.1360.741" timestamp="1579463559957" />
-    <state x="392" y="215" width="571" height="400" key="NewPhpClassDialog" timestamp="1579465073201">
-      <screen x="0" y="27" width="1360" height="741" />
-    </state>
-    <state x="392" y="215" width="571" height="400" key="NewPhpClassDialog/1360.0.1366.768/0.27.1360.741@0.27.1360.741" timestamp="1579465073201" />
-    <state x="179" y="31" width="1007" height="737" key="SettingsEditor" timestamp="1579457747611">
-      <screen x="0" y="27" width="1360" height="741" />
-    </state>
-    <state x="179" y="31" width="1007" height="737" key="SettingsEditor/1360.0.1366.768/0.27.1360.741@0.27.1360.741" timestamp="1579457747611" />
-    <state x="353" y="225" key="com.intellij.ide.util.TipDialog" timestamp="1579466677557">
+    <state x="418" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1579573275091">
       <screen x="0" y="27" width="1366" height="741" />
     </state>
-    <state x="353" y="225" key="com.intellij.ide.util.TipDialog/0.27.1366.741@0.27.1366.741" timestamp="1579466677557" />
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1579464854994">
-      <screen x="0" y="27" width="1360" height="741" />
+    <state x="418" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.27.1366.741@0.27.1366.741" timestamp="1579573275091" />
+    <state x="416" y="155" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1360.0.1366.768/0.27.1360.741@0.27.1360.741" timestamp="1579463559957" />
+    <state x="481" y="311" width="784" height="379" key="NewPhpClassDialog" timestamp="1579572822729">
+      <screen x="0" y="27" width="1366" height="741" />
     </state>
+    <state x="481" y="311" width="784" height="379" key="NewPhpClassDialog/0.27.1366.741@0.27.1366.741" timestamp="1579572822729" />
+    <state x="392" y="215" width="571" height="400" key="NewPhpClassDialog/1360.0.1366.768/0.27.1360.741@0.27.1360.741" timestamp="1579465073201" />
+    <state x="180" y="31" width="1007" height="737" key="SettingsEditor" timestamp="1579528881889">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state x="180" y="31" width="1007" height="737" key="SettingsEditor/0.27.1366.741@0.27.1366.741" timestamp="1579528881889" />
+    <state x="179" y="31" width="1007" height="737" key="SettingsEditor/1360.0.1366.768/0.27.1360.741@0.27.1360.741" timestamp="1579457747611" />
+    <state x="353" y="225" key="com.intellij.ide.util.TipDialog" timestamp="1579528041518">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state x="353" y="225" key="com.intellij.ide.util.TipDialog/0.27.1366.741@0.27.1366.741" timestamp="1579528041518" />
+    <state x="427" y="34" width="501" height="734" key="refactoring.ChangeSignatureDialog" timestamp="1579554032109">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state x="427" y="34" width="501" height="734" key="refactoring.ChangeSignatureDialog/0.27.1366.741@0.27.1366.741" timestamp="1579554032109" />
+    <state x="348" y="89" width="675" height="678" key="search.everywhere.popup" timestamp="1579573271688">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state x="348" y="89" width="675" height="678" key="search.everywhere.popup/0.27.1366.741@0.27.1366.741" timestamp="1579573271688" />
     <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/1360.0.1366.768/0.27.1360.741@0.27.1360.741" timestamp="1579464854994" />
   </component>
 </project>

@@ -8,7 +8,6 @@ use PhpSpec\ObjectBehavior;
 
 class AddQuestionCommandSpec extends ObjectBehavior
 {
-
     private $userId;
     private $question;
     private $description;

@@ -44,8 +44,13 @@ interface QuestionsRepository
      * Persists all changes on provided question entity
      *
      * @param Question $question
-     *
      * @return Question
      */
     public function update(Question $question): Question;
+
+    /**
+     * @param Question $question
+     * @return void
+     */
+    public function remove(Question $question): void;
 }

@@ -4,9 +4,11 @@ namespace App\Domain\Answers;
 
 use App\Domain\Answers\Answer\AnswerId;
 use App\Domain\Answers\Events\AnswerWasCreated;
+use App\Domain\Answers\Events\AnswerWasDeleted;
 use App\Domain\Answers\Events\AnswerWasEdited;
 use App\Domain\Events\EventGenerator;
 use App\Domain\Events\EventGeneratorMethods;
+use App\Domain\Questions\Question\QuestionId;
 use App\Domain\UserManagement\User\UserId;
 use DateTimeImmutable;
 use Exception;
@@ -40,38 +42,47 @@ class Answer implements EventGenerator
      */
     private $lastEditedOn;
     /**
-     * @var
+     * @var AnswerId
      */
     private $answerId;
+    /**
+     * @var QuestionId
+     */
+    private $questionId;
 
     /**
      * Creates a Answer
-     *
      * @param UserId $userId
+     * @param QuestionId $questionId
      * @param string $description
-     *
      * @throws Exception
      */
-    public function __construct(UserId $userId, string $description)
+    public function __construct(UserId $userId, QuestionId $questionId ,string $description)
     {
         $this->answerId = new answerId();
         $this->userId = $userId;
+        $this->questionId = $questionId;
         $this->description = $description;
         $this->appliedOn = new DateTimeImmutable();
         $this->recordThat(new AnswerWasCreated($this));
     }
 
-    public function answerId()
+    public function answerId(): AnswerId
     {
         return $this->answerId;
     }
 
-    public function questionId()
+    public function questionId(): QuestionId
     {
         return $this->questionId;
     }
 
-    public function description()
+    public function userId(): UserId
+    {
+        return $this->userId;
+    }
+
+    public function description(): string
     {
         return $this->description;
     }
@@ -107,4 +118,11 @@ class Answer implements EventGenerator
         $this->recordThat(new AnswerWasEdited($this->answerId, $description));
         return $this;
     }
+
+    public function remove (Answer $answer): Answer
+    {
+        $this->recordThat(new AnswerWasDeleted($this->answerId));
+        return $this;
+    }
+
 }

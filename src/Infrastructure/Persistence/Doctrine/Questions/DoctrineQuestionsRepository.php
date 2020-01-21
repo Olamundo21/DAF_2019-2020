@@ -16,7 +16,9 @@ use App\Domain\Questions\Question\QuestionId;
 use App\Domain\Questions\QuestionsRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\TransactionRequiredException;
 
 class DoctrineQuestionsRepository implements QuestionsRepository
 {
@@ -47,18 +49,45 @@ class DoctrineQuestionsRepository implements QuestionsRepository
     }
 
     /**
-     * @inheritDoc
+     * @param QuestionId $questionId
+     * @return Question
+     * @throws ORMException
+     * @throws OptimisticLockException
+     * @throws TransactionRequiredException
      */
     public function withId(QuestionId $questionId): Question
     {
-        // TODO: Implement withId() method.
+        $question = $this->entityManager->find(Question::class, $questionId);
+
+        if (!$question instanceof Question) {
+            throw new QuestionNotFound("Question not found!");
+        }
+
+        return $question;
     }
 
+
     /**
-     * @inheritDoc
+     * @param Question $question
+     * @return Question
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function update(Question $question): Question
     {
-        // TODO: Implement update() method.
+        $this->entityManager->flush($question);
+        return $question;
+    }
+
+
+    /**
+     * @param Question $question
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function remove(Question $question): void
+    {
+        $this->entityManager->remove($question);
+        $this->entityManager->flush();
     }
 }

@@ -14,7 +14,7 @@ use Exception;
  * @ORM\Entity()
  * @ORM\Table(name="tags")
  */
-class Tag
+class Tag implements \JsonSerializable
 {
 
     /**
@@ -63,5 +63,16 @@ class Tag
     public function description(): string
     {
         return $this->description;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'tagId' => $this->tagId,
+            'description' => $this->description
+        ];
     }
 }
